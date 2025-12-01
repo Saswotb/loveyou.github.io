@@ -1,0 +1,235 @@
+<html>
+<head>
+  <title>I Love You ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffd6e7, #ffe9b8);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .ask-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: pop 0.6s ease;
+      max-width: 420px;
+      width: 90%;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .btn-row{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      align-items:center;
+      margin-top:16px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      transition: transform 0.18s ease;
+    }
+    .yes { background: #ff6b94; }
+    .no { background: #9b9b9b; }
+
+    /* Envelope */
+    .envelope-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .envelope {
+      width: 360px;
+      height: 320px;
+      background: #ff9ccf;
+      position: relative;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .top-flap {
+      width: 100%;
+      height: 100%;
+      background: #ff6b94;
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      position: absolute;
+      top: 0;
+      transition: transform 0.8s ease;
+      transform-origin: top;
+    }
+
+    .letter {
+      width: 90%;
+      height: 75%;
+      background: rgb(249, 129, 239);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(140%);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      font-size: 17px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.8s ease;
+    }
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.8s ease;
+    }
+
+    .open .top-flap {
+      transform: rotateX(180deg);
+    }
+
+    .open .letter {
+      transform: translateX(-50%) translateY(-10%);
+    }
+
+    .shake { animation: shake 0.4s ease; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-6px); }
+    }
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      from { transform: translateY(-50px) rotate(0deg); opacity:1; }
+      to { transform: translateY(100vh) rotate(360deg); opacity:0; }
+    }
+</style>
+</head>
+<body>
+
+  <div class="ask-box" id="askBox">
+    <h1 style="color:#3a2a48; font-weight:700">Do you love me? 🥺💗</h1>
+
+    <div class="btn-row" id="btnRow">
+      <button class="btn yes" id="yesBtn">Yes 💞</button>
+      <button class="btn no" id="noBtn">No 😭</button>
+    </div>
+  </div>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <h2 style="color:#3a2a48; margin-bottom:18px; font-weight:700">Yayyyyyy, Tap the envelope 💌</h2>
+
+    <div class="envelope" id="envelope">
+      <div class="top-flap"></div>
+      <div class="letter">You make my whole world brighter 💗<br><br>
+All those moments where we spent our whole night talking to each other.<br>
+Timile diyeko love, care all feel special.💗<br><br>
+Aaba jamma 18 days baki cha....Then we will finallllyyyyyyy meeeettttttttt. ❤️😭<br>
+I Love Youuu mero Kanchuu ❤️😘<br><br>
+Happy 3 months, my baby girll 💗✨</div>
+    </div>
+  </div>
+
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const askBox = document.getElementById('askBox');
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const envelope = document.getElementById('envelope');
+
+    const noBtn = document.getElementById('noBtn');
+    const btnRow = document.getElementById('btnRow');
+
+    yesBtn.addEventListener('click', () => {
+      askBox.style.display = 'none';
+      envelopeWrapper.style.display = 'flex';
+      launchHearts();
+    });
+
+    function launchHearts() {
+      const confetti = document.getElementById('confetti');
+      for (let i = 0; i < 25; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '💗';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = (Math.random() * 1) + 's';
+        confetti.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      askBox.style.display = 'none';
+      envelopeWrapper.style.display = 'flex';
+    });
+
+    // when mouse moves over No, it playfully shifts position using translate (keeps alignment of layout)
+    noBtn.addEventListener('mouseover', () => {
+      const rowRect = btnRow.getBoundingClientRect();
+      // compute a small random shift within ±90px horizontally and ±20px vertically
+      const shiftX = (Math.random() - 1.5) * 180;
+      const shiftY = (Math.random() - 1.5) * 180;
+      noBtn.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
+      noBtn.style.zIndex = 10;
+    });
+
+    // reset to center when mouse leaves the row
+    btnRow.addEventListener('mouseleave', () => {
+      noBtn.style.transform = 'translate(0,0)';
+      noBtn.style.zIndex = '';
+    });
+
+    noBtn.addEventListener('click', () => {
+      const title = askBox.querySelector('h1');
+      title.textContent = "Do you love me? 🥺💗 (Please say yes!)";
+      askBox.classList.add('shake');
+      setTimeout(() => askBox.classList.remove('shake'), 400);
+    });
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('open');
+    });
+  </script>
+
+  <div id="confetti"></div>
+</body>
+</html>
